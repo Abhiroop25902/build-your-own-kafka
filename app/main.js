@@ -7,11 +7,11 @@ console.log("Logs from your program will appear here!");
 const server = net.createServer((connection) => {
   // Handle connection
     connection.on("data", (data) => {
-        const str = data.toString();
-        console.log({data, str});
+        const request_api_key = data.subarray(0, 2);
+        const request_api_version = data.subarray(2, 4);
+        const correlation_id = data.subarray(4, 12);
 
-        connection.write("\x00\x00\x00\x00\x00\x00\x00\x07");
-        connection.end();
+        connection.write(correlation_id);
     })
 });
 
