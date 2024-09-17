@@ -2,5 +2,10 @@
   "name": "@codecrafters/kafka",
   "version": "1.0.0",
   "type": "module",
-  "dependencies": {}
+  "dependencies": {},
+  "scripts": {
+    "run_local": "node ./app/main.js",
+    "test": "codecrafters test",
+    "submit": "codecrafters submit"
+  }
 }
