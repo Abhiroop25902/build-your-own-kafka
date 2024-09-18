@@ -55,13 +55,19 @@ export default async function kafkaServer(socket) {
 
                 const responseData = Buffer.from([
                     0, 0, // Error code
-                    2, // API keys length + 1
-                    0, // Reserved
-                    header.request_api_key, // API key
-                    0, 4, // Min version
-                    0, 4, // Max version
-                    0, 0, 0, 0, 0, // Throttle time
-                    0, // Reserved (not documented)
+                    3, // API keys length + 1
+                    // ApiKeys[0]
+                    0, header.request_api_key, // API key
+                    0, 4, // Min API version
+                    0, 4, // Max API version
+                    0, // TAG BUFFER
+                    // ApiKeys[1]
+                    0, header.request_api_key, // API key
+                    0, 4, // Min FETCH version
+                    0, 16, // Max FETCH version
+                    0, // TAG BUFFER
+                    0, 0, 0, 0, // Throttle time
+                    0, // End of Data
                 ])
 
                 const response = Buffer.concat([
